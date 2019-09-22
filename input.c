@@ -6,7 +6,7 @@
 /*   By: hcaterpi <hcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/09/21 17:08:54 by hcaterpi         ###   ########.fr       */
+/*   Updated: 2019/09/22 15:22:51 by htrent           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	display_message(int signal)
 	if (signal == 1)
 		write(1, "error\n", 6);
 	else if (signal == 0)
-		write(1, "usage: fillit source_file\n", 26);
+		write(1, "usage: ./fillit source_file\n", 28);
 }
 
 int		check_around(char *tetrimino, int i)
@@ -98,6 +98,11 @@ int		main(int argv, char **argc)
 				display_message(1);
 				return (1);
 			}
+		}
+		if (strlen(buffer) != 20) ///_ft_strlen!!!
+		{
+			display_message(1);
+			return (1);
 		}
 		close(fd);
 	}
