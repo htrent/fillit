@@ -13,7 +13,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
-#include <io.h>		// unistd.h
+#include <unistd.h>
 
 #include <stdio.h>
 
@@ -90,7 +90,7 @@ int		main(int argv, char **argc)
 			return (1);
 		}
 		buffer = (char *)malloc(sizeof(char) * 22);
-		while ((byte_read = read(fd, buffer, 21 + 5)))	// vs bug?
+		while ((byte_read = read(fd, buffer, 21)))
 		{
 			buffer[byte_read] = '\0';
 			if (validation(buffer, byte_read))
