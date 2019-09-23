@@ -1,13 +1,3 @@
-
-.idea/fillit.iml
-.idea/misc.xml
-.idea/modules.xml
-.idea/workspace.xml
-.idea/workspace.xml
-*.xml
-/Debug
-/.vs/fillit/v16
-/fillit.sln
-/fillit.vcxproj
-/fillit.vcxproj.filters
-/fillit.vcxproj.user
+.gitignore
+example
+test
