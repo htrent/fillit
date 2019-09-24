@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcaterpi <hcaterpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/09/22 15:22:51 by htrent           ###   ########.fr       */
+/*   Updated: 2019/09/24 14:42:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-#include <stdio.h>
+#include "fillit.h"
 
 void	display_message(int signal)
 {
@@ -73,40 +68,5 @@ int		validation(char *tetrimino, int byte_read)
 	}
 	if (sharps != 4 || dots != 12)
 		return (1);
-	return (0);
-}
-
-int		main(int argv, char **argc)
-{
-	char	*buffer;
-	int		byte_read;
-	int		fd;
-
-	if (argv == 2)
-	{
-		if ((fd = open(argc[1], O_RDONLY)) == -1)
-		{
-			display_message(1);
-			return (1);
-		}
-		buffer = (char *)malloc(sizeof(char) * 22);
-		while ((byte_read = read(fd, buffer, 21)))
-		{
-			buffer[byte_read] = '\0';
-			if (validation(buffer, byte_read))
-			{
-				display_message(1);
-				return (1);
-			}
-		}
-		if (strlen(buffer) != 20) ///_ft_strlen!!!
-		{
-			display_message(1);
-			return (1);
-		}
-		close(fd);
-	}
-	else
-		display_message(0);
 	return (0);
 }
