@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcaterpi <hcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/09/24 15:07:10 by marvin           ###   ########.fr       */
+/*   Updated: 2019/09/25 16:45:40 by hcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_list	*figures;
+t_list	*g_figures;
 
 int		main(int argv, char **argc)
 {
 	char	*buffer;
 	int		byte_read;
+	int		counter;
 	int		fd;
 
 	if (argv == 2)
@@ -27,6 +28,7 @@ int		main(int argv, char **argc)
 			display_message(1);
 			return (1);
 		}
+		counter = 0;
 		buffer = (char *)malloc(sizeof(char) * 22);
 		while ((byte_read = read(fd, buffer, 21)))
 		{
@@ -36,8 +38,10 @@ int		main(int argv, char **argc)
 				display_message(1);
 				return (1);
 			}
+			ft_list_add(&g_figures, buffer);
+			counter++;
 		}
-		if (strlen(buffer) != 20) ///_ft_strlen!!!
+		if (strlen(buffer) != 20 || counter < 2 || counter > 25) ///_ft_strlen!!!
 		{
 			display_message(1);
 			return (1);
