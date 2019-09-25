@@ -31,6 +31,12 @@ typedef struct	s_list
 
 t_list *ft_list_create(char *tetrimino);
 t_list *ft_list_add(t_list **begin_list, char *tetrimino);
+void    ft_putchar(char c);
+void    ft_putstr(char *str);
+void shift_upper_left(t_list *head);
+int count_blank_strings(int **tetrimino);
+int count_blank_columns(int **tetrimino);
+int **init_field(int counter);
 
 int validation(char *tetrimino, int byte_read);
 void	display_message(int signal);

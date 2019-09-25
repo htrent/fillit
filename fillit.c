@@ -51,9 +51,9 @@ int		main(int argv, char **argc)
 	else
 		display_message(0);
 
-	print_list(g_figures);
+	ft_print_list(g_figures);
     shift_upper_left(g_figures);
-    print_list(g_figures);
+    ft_print_list(g_figures);
 	/// Begin of solution
 	//// Part #1. Summarize
     int **field;
