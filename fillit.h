@@ -19,6 +19,7 @@
 # include <unistd.h>
 
 # include <stdio.h>		// testing
+# include <math.h>      // for sqrt
 
 typedef struct	s_list
 {

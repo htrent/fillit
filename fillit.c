@@ -50,5 +50,45 @@ int		main(int argv, char **argc)
 	}
 	else
 		display_message(0);
+
+	print_list(g_figures);
+    shift_upper_left(g_figures);
+    print_list(g_figures);
+	/// Begin of solution
+	//// Part #1. Summarize
+    int **field;
+	int i;
+	int j;
+	int shift_x;
+	int shift_y;
+    int n;
+
+    n = sqrt(counter * 4);
+	field = init_field(counter);
+    shift_x = 0;
+    shift_y = 0;
+	i = 0;
+	j = 0;
+	while (list)
+    {
+	    while (i < 4)
+        {
+	        while (j < 4)
+            {
+                if (field[i][j] + list->figure[i][j] > 1)
+                    break ;
+	            field[i][j] += list->figure[i][j];
+	            j++;
+            }
+            if (field[i][j] + list->figure[i][j] > 1)
+                break ;
+	        i++;
+	        j = 0;
+        }
+        if (field[i][j] + list->figure[i][j] > 1)
+
+	    if (shift_x + i)
+	    list = list->next;
+    }
 	return (0);
 }
