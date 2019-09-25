@@ -56,14 +56,12 @@ int		main(int argv, char **argc)
     ft_print_list(g_figures);
 	/// Begin of solution
 	//// Part #1. Summarize
-    int **field;
+  /*  int **field;
 	int i;
 	int j;
 	int shift_x;
 	int shift_y;
-    int n;
 
-    n = sqrt(counter * 4);
 	field = init_field(counter);
     shift_x = 0;
     shift_y = 0;
@@ -89,6 +87,6 @@ int		main(int argv, char **argc)
 
 	    if (shift_x + i)
 	    list = list->next;
-    }
+    }*/
 	return (0);
 }
