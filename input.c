@@ -3,26 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcaterpi <hcaterpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/09/21 17:08:54 by hcaterpi         ###   ########.fr       */
+/*   Updated: 2019/09/24 14:42:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-#include <stdio.h>
+#include "fillit.h"
 
 void	display_message(int signal)
 {
 	if (signal == 1)
 		write(1, "error\n", 6);
 	else if (signal == 0)
-		write(1, "usage: fillit source_file\n", 26);
+		write(1, "usage: ./fillit source_file\n", 28);
 }
 
 int		check_around(char *tetrimino, int i)
@@ -73,35 +68,5 @@ int		validation(char *tetrimino, int byte_read)
 	}
 	if (sharps != 4 || dots != 12)
 		return (1);
-	return (0);
-}
-
-int		main(int argv, char **argc)
-{
-	char	*buffer;
-	int		byte_read;
-	int		fd;
-
-	if (argv == 2)
-	{
-		if ((fd = open(argc[1], O_RDONLY)) == -1)
-		{
-			display_message(1);
-			return (1);
-		}
-		buffer = (char *)malloc(sizeof(char) * 22);
-		while ((byte_read = read(fd, buffer, 21)))
-		{
-			buffer[byte_read] = '\0';
-			if (validation(buffer, byte_read))
-			{
-				display_message(1);
-				return (1);
-			}
-		}
-		close(fd);
-	}
-	else
-		display_message(0);
 	return (0);
 }
