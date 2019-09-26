@@ -6,7 +6,7 @@
 /*   By: hcaterpi <hcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/09/25 16:45:40 by hcaterpi         ###   ########.fr       */
+/*   Updated: 2019/09/26 13:23:39 by htrent           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		main(int argv, char **argc)
 			ft_list_add(&g_figures, buffer);
 			counter++;
 		}
-		if (strlen(buffer) != 20 || counter < 2 || counter > 25) ///_ft_strlen!!!
+		if (strlen(buffer) != 20 || counter < 2 || counter > 25)///_ft_strlen!!!
 		{
 			display_message(1);
 			return (1);
@@ -50,5 +50,7 @@ int		main(int argv, char **argc)
 	}
 	else
 		display_message(0);
+	ft_shift_upper_left(g_figures);
+	ft_print_list(g_figures);
 	return (0);
 }
