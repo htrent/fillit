@@ -6,123 +6,157 @@
 /*   By: htrent <htrent@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by htrent            #+#    #+#             */
-/*   Updated: 2019/09/24 14:42:44 by htrent           ###   ########.fr       */
+/*   Updated: 2019/09/26 13:26:52 by htrent           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void    ft_putchar(char c)
+void	ft_putchar(char c)
 {
-    write(1, &c, 1);
+	write(1, &c, 1);
 }
 
-void    ft_putstr(char *str)
+void	ft_putstr(char *str)
 {
-    while(*str)
-        ft_putchar(*(str++));
+	while (*str)
+		ft_putchar(*(str++));
 }
 
-int count_blank_strings(int **tetrimino)
+int		ft_count_blank_strings(int tetrimino[4][4])
 {
-    int i;
-    int j;
-    int count;
+	int i;
+	int j;
+	int count;
 
-    while (i < 4)
-    {
-        while (j < 4 && tetrimino[i][j++] == 0)
-            count++;
-        if (j != 4)
-            break ;
-        j = 0;
-        i++;
-    }
-    return (count / 4);
+	count = 0;
+	i = 0;
+	j = 0;
+	while (i < 4)
+	{
+		while (j < 4 && tetrimino[i][j] == 0)
+		{
+			j++;
+			count++;
+		}
+		if (j != 4)
+			break ;
+		j = 0;
+		i++;
+	}
+	return (count / 4);
 }
 
-int count_blank_columns(int **tetrimino)
+int		ft_count_blank_columns(int tetrimino[4][4])
 {
-    int i;
-    int j;
-    int count;
+	int i;
+	int j;
+	int count;
 
-    while (i < 4)
-    {
-        while (j < 4 && tetrimino[j++][i] == 0)
-            count++;
-        if (j != 4)
-            break ;
-        j = 0;
-        i++;
-    }
-    return (count / 4);
+	count = 0;
+	i = 0;
+	j = 0;
+	while (i < 4)
+	{
+		while (j < 4 && tetrimino[j][i] == 0)
+		{
+			j++;
+			count++;
+		}
+		if (j != 4)
+			break ;
+		j = 0;
+		i++;
+	}
+	return (count / 4);
 }
 
-void shift_upper_left(t_list *head)
+t_list	*ft_shift_upper(t_list *list)
 {
-    t_list *list;
-    int i;
-    int j;
-    int shift_x;
-    int shift_y;
+	int i;
+	int j;
+	int shift;
 
-    i = -1;
-    j = -1;
-    list = head;
-    while (list)
-    {
-        shift_x = count_blank_strings(list->figure);
-        while (++i < 4 - shift_x)
-            while (++j < 4)
-                list->figure[i][j] = list->figure[i + shift_x][j];
-         i = -1;
-         j = -1;
-         shift_y = count_blank_columns(list->figure);
-        while (++i < 4)
-            while (++j < 4 - shift_y)
-                list->figure[i][j] = list->figure[i][j + shift_y];
-        list = list->next;
-    }
+	i = 0;
+	j = 0;
+	shift = ft_count_blank_columns(list->figure);
+	if (shift != 0)
+		while (i < 4)
+		{
+			while (j < 4 - shift)
+			{
+				list->figure[i][j] = list->figure[i][j + shift];
+				list->figure[i][j + shift] = 0;
+				j++;
+			}
+			i++;
+			j = 0;
+		}
+	return (list);
 }
 
-
-
-int **init_field(int counter)
+t_list	*ft_shift_left(t_list *list)
 {
-    int n;
-    int **field;
-    int i;
-    int j;
+	int i;
+	int j;
+	int shift;
 
-    n = sqrt(counter * 4);
-    i = -1;
-    j = 0;
-    field = (int **)malloc(sizeof(int *) * n);
-    if (!field)
-        return (NULL);
-    while(++i < n)
-    {
-        field[i] = (int *)malloc(sizeof(int) * n);
-        if (!field[i])
-        {
-            while (i >= 0)
-                free(field[i--]);
-            return (NULL);
-        }
-        while (j < n)
-            field[i][j++] = 0;
-        j = 0;
-    }
-    return (field);
+	i = 0;
+	j = 0;
+	shift = ft_count_blank_strings(list->figure);
+	if (shift != 0)
+		while (i < 4 - shift)
+		{
+			while (j < 4)
+			{
+				list->figure[i][j] = list->figure[i + shift][j];
+				list->figure[i + shift][j] = 0;
+				j++;
+			}
+			j = 0;
+			i++;
+		}
+	return (list);
 }
 
-/* **sum_arrays(int **arr1, int n, int **arr2, int m)
+void	ft_shift_upper_left(t_list *head)
 {
-    int i;
-    int j;
+	t_list *list;
 
-    i = 0;
-    j = 0;
-    while (i < n)
-}*/
+	list = head;
+	while (list)
+	{
+		list = ft_shift_upper(list);
+		list = ft_shift_left(list);
+		list = list->next;
+	}
+}
+
+int		**ft_init_field(int counter)
+{
+	int n;
+	int **field;
+	int i;
+	int j;
+
+	n = sqrt(counter * 4);
+	i = -1;
+	j = 0;
+	field = (int **)malloc(sizeof(int *) * n);
+	if (!field)
+		return (NULL);
+	while (++i < n)
+	{
+		field[i] = (int *)malloc(sizeof(int) * n);
+		if (!field[i])
+		{
+			while (i >= 0)
+				free(field[i--]);
+			return (NULL);
+		}
+		while (j < n)
+			field[i][j++] = 0;
+		j = 0;
+	}
+	return (field);
+}

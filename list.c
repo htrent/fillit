@@ -6,7 +6,7 @@
 /*   By: hcaterpi <hcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 16:21:53 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/09/25 16:33:19 by hcaterpi         ###   ########.fr       */
+/*   Updated: 2019/09/26 13:07:56 by htrent           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,30 @@ t_list		*ft_list_add(t_list **begin_list, char *tetrimino)
 	return (current);
 }
 
-void        ft_print_list(t_list *head)
+void		ft_print_list(t_list *head)
 {
-    t_list *list;
-    int i;
-    int j;
+	t_list	*list;
+	int		i;
+	int		j;
 
-    list = head;
-    while (list)
-    {
-        i = 0;
-        j = 0;
-        while (i < 4)
-        {
-            while (j < 4)
-            {
-                ft_putchar(list->figure[i][j++]);
-                ft_putchar(' ');
-            }
-            ft_putchar('\n');
-            j = 0;
-            i++;
-        }
-        list = list->next;
-    }
+	list = head;
+	while (list)
+	{
+		i = 0;
+		j = 0;
+		while (i < 4)
+		{
+			while (j < 4)
+			{
+				ft_putchar(list->figure[i][j] + '0');
+				ft_putchar(' ');
+				j++;
+			}
+			ft_putchar('\n');
+			j = 0;
+			i++;
+		}
+		ft_putchar('\n');
+		list = list->next;
+	}
 }
