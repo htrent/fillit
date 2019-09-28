@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   funcs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrent <htrent@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by htrent            #+#    #+#             */
-/*   Updated: 2019/09/26 15:00:08 by htrent           ###   ########.fr       */
+/*   Updated: 2019/09/28 16:24:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,40 @@ void	ft_shift_upper_left(t_list *head)
 		list = ft_shift_upper(list);
 		list = ft_shift_left(list);
 		list = list->next;
+	}
+}
+
+void	ft_dimensions_filling(t_list *head)
+{
+	t_list	*current;
+	int		i_max;
+	int		j_max;
+	int		i;
+	int		j;
+
+	current = head;
+	while (current)
+	{
+		i_max = 0;
+		j_max = 0;
+		i = 0;
+		while (i < 4)
+		{
+			j = 0;
+			while (j < 4)
+			{
+				if (current->figure[i][j] == 1)
+				{
+					i_max = (i > i_max) ? i : i_max;
+					j_max = (j > j_max) ? j : j_max;
+				}
+				j++;
+			}
+			i++;
+		}
+		current->width = j_max + 1;
+		current->heigth = i_max + 1;
+		current = current->next;
 	}
 }
 

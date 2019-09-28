@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcaterpi <hcaterpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/09/26 13:23:39 by htrent           ###   ########.fr       */
+/*   Updated: 2019/09/28 15:44:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		main(int argv, char **argc)
 	else
 		display_message(0);
 	ft_shift_upper_left(g_figures);
+	ft_dimensions_filling(g_figures);
 	ft_print_list(g_figures);
 	return (0);
 }
