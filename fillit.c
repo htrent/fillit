@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/09/28 15:44:18 by marvin           ###   ########.fr       */
+/*   Updated: 2019/10/01 16:22:56 by htrent           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ int		main(int argv, char **argc)
 	int		byte_read;
 	int		counter;
 	int		fd;
+
+	int **field;
+	int n;
 
 	if (argv == 2)
 	{
@@ -49,9 +52,26 @@ int		main(int argv, char **argc)
 		close(fd);
 	}
 	else
+	{
 		display_message(0);
+		return (1);
+	}
 	ft_shift_upper_left(g_figures);
 	ft_dimensions_filling(g_figures);
+	ft_add_alpha(g_figures);
 	ft_print_list(g_figures);
+	n = sqrt(counter * 4);
+	field = ft_init_field(n);
+
+	while (g_figures)
+	{
+		field = ft_sum(g_figures, field, &n);
+		g_figures = g_figures->next;
+	}
+	ft_print_field(field, n);
+	int i = 0;
+	while(i < n)
+		free(field[i++]);
+	free(field);
 	return (0);
 }

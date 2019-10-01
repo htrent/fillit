@@ -6,11 +6,66 @@
 /*   By: hcaterpi <hcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 16:21:53 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/09/26 13:07:56 by htrent           ###   ########.fr       */
+/*   Updated: 2019/10/01 16:01:35 by htrent           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+char	ft_alpha_parse(int figure[4][4])
+{
+	if (figure[0][0] && figure[1][0] && figure[2][0] && figure[3][0])
+		return ('A');
+	if (figure[0][0] && figure[0][1] && figure[0][2] && figure[0][3])
+		return ('B');
+	if (figure[0][0] && figure[0][1] && figure[1][0] && figure[1][1])
+		return ('C');
+	if (figure[0][0] && figure[1][0] && figure[2][0] && figure[2][1])
+		return ('D');
+	if (figure[0][2] && figure[1][0] && figure[1][2] && figure[1][3])
+		return ('E');
+	if (figure[0][0] && figure[0][1] && figure[1][1] && figure[2][1])
+		return ('F');
+	if (figure[0][0] && figure[0][1] && figure[0][2] && figure[1][0])
+		return ('G');
+	if (figure[0][0] && figure[1][0] && figure[1][1] && figure[2][1])
+		return ('H');
+	if (figure[0][1] && figure[0][2] && figure[1][0] && figure[1][1])
+		return ('J');
+	if (figure[0][0] && figure[1][0] && figure[2][0] && figure[1][1])
+		return ('K');
+	if (figure[0][1] && figure[1][0] && figure[1][1] && figure[1][2])
+		return ('L');
+	if (figure[0][1] && figure[1][0] && figure[1][1] && figure[2][1])
+		return ('M');
+	if (figure[0][0] && figure[0][1] && figure[0][2] && figure[1][1])
+		return ('N');
+	if (figure[0][1] && figure[1][1] && figure[2][0] && figure[2][1])
+		return ('O');
+	if (figure[0][0] && figure[1][0] && figure[1][1] && figure[1][2])
+		return ('P');
+	if (figure[0][0] && figure[0][1] && figure[1][0] && figure[2][0])
+		return ('Q');
+	if (figure[0][0] && figure[0][1] && figure[0][2] && figure[1][2])
+		return ('R');
+	if (figure[0][1] && figure[1][0] && figure[1][1] && figure[2][0])
+		return ('S');
+	if (figure[0][0] && figure[0][1] && figure[1][1] && figure[1][2])
+		return ('T');
+	return (0);
+}
+
+void		ft_add_alpha(t_list *head)
+{
+	t_list *list;
+
+	list = head;
+	while (list)
+	{
+		list->alpha = ft_alpha_parse(list->figure);
+		list = list->next;
+	}
+}
 
 t_list		*ft_list_create(char *tetrimino)
 {

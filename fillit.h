@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/09/28 15:45:21 by marvin           ###   ########.fr       */
+/*   Updated: 2019/10/01 15:54:20 by htrent           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 
 # include <stdio.h>		// testing
 # include <math.h>      // for sqrt
+# define MAX(i, j) (i > j) ? i : j
 
 typedef struct		s_list
 {
 	int				figure[4][4];
 	int				width;
 	int				heigth;
+	char			alpha;
 	struct s_list	*next;
 }					t_list;
 
@@ -43,4 +45,9 @@ void				display_message(int signal);
 
 void				ft_dimensions_filling(t_list *head);
 
+void				ft_add_alpha(t_list *head);
+int					ft_check_field(int **field, char alpha, int i, int j);
+void				ft_print_field(int **field, int n);
+int					**ft_sum(t_list *tetrimino, int **field, int *n);
+int					**ft_reinit_field(int **field, int size, int *n);
 #endif
