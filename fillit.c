@@ -6,19 +6,20 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/09/28 15:44:18 by marvin           ###   ########.fr       */
+/*   Updated: 2019/10/01 17:41:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_list	*g_figures;
 
 int		main(int argv, char **argc)
 {
 	char	*buffer;
 	int		byte_read;
+	int		**field;
 	int		counter;
+	int		size;
 	int		fd;
 
 	if (argv == 2)
@@ -52,6 +53,14 @@ int		main(int argv, char **argc)
 		display_message(0);
 	ft_shift_upper_left(g_figures);
 	ft_dimensions_filling(g_figures);
-	ft_print_list(g_figures);
+	size = ceil(sqrt(counter * 4));
+	field = ft_init_field(size);
+	while (!ft_resolving(field))
+	{
+		size++;									// free_map
+		field = ft_init_field(size);
+	}
+	ft_print_map(field);
+	//ft_print_list(g_figures);
 	return (0);
 }

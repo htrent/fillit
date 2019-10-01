@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/09/28 15:45:21 by marvin           ###   ########.fr       */
+/*   Updated: 2019/10/01 17:33:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+t_list				*g_figures;
+
 t_list				*ft_list_create(char *tetrimino);
 t_list				*ft_list_add(t_list **begin_list, char *tetrimino);
 void    			ft_putchar(char c);
@@ -42,5 +44,7 @@ int					validation(char *tetrimino, int byte_read);
 void				display_message(int signal);
 
 void				ft_dimensions_filling(t_list *head);
+int					ft_resolving(int **field);
+void				ft_print_map(int **field);
 
 #endif

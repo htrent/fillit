@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by htrent            #+#    #+#             */
-/*   Updated: 2019/09/28 16:24:46 by marvin           ###   ########.fr       */
+/*   Updated: 2019/10/01 17:41:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,14 +166,12 @@ void	ft_dimensions_filling(t_list *head)
 	}
 }
 
-int		**ft_init_field(int counter)
+int		**ft_init_field(int n)
 {
-	int n;
 	int **field;
 	int i;
 	int j;
 
-	n = sqrt(counter * 4);
 	i = -1;
 	j = 0;
 	field = (int **)malloc(sizeof(int *) * n);
@@ -193,4 +191,29 @@ int		**ft_init_field(int counter)
 		j = 0;
 	}
 	return (field);
+}
+
+int		ft_resolving(int **field)
+{
+	
+	return (0);
+}
+
+void	ft_print_map(int **field)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 6)
+	{
+		j = 0;
+		while (j < 6)
+		{
+			ft_putchar(field[i][j] + '0');
+			j++;
+		}
+		ft_putchar('\n');
+		i++;
+	}
 }
