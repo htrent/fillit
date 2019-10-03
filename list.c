@@ -14,43 +14,43 @@
 
 char	ft_alpha_parse(int figure[4][4])
 {
-	if (figure[0][0] && figure[1][0] && figure[2][0] && figure[3][0])
+	if (A(figure, 0, 0) == 4)
 		return ('A');
-	if (figure[0][0] && figure[0][1] && figure[0][2] && figure[0][3])
+	if (B(figure, 0, 0) == 4)
 		return ('B');
-	if (figure[0][0] && figure[0][1] && figure[1][0] && figure[1][1])
+	if (C(figure, 0, 0) == 4)
 		return ('C');
-	if (figure[0][0] && figure[1][0] && figure[2][0] && figure[2][1])
+	if (D(figure, 0, 0) == 4)
 		return ('D');
-	if (figure[0][2] && figure[1][0] && figure[1][2] && figure[1][3])
+	if (E(figure, 0, 0) == 4)
 		return ('E');
-	if (figure[0][0] && figure[0][1] && figure[1][1] && figure[2][1])
+	if (F(figure, 0, 0) == 4)
 		return ('F');
-	if (figure[0][0] && figure[0][1] && figure[0][2] && figure[1][0])
+	if (G(figure, 0, 0) == 4)
 		return ('G');
-	if (figure[0][0] && figure[1][0] && figure[1][1] && figure[2][1])
+	if (H(figure, 0, 0) == 4)
 		return ('H');
-	if (figure[0][1] && figure[0][2] && figure[1][0] && figure[1][1])
+	if (J(figure, 0, 0) == 4)
 		return ('J');
-	if (figure[0][0] && figure[1][0] && figure[2][0] && figure[1][1])
+	if (K(figure, 0, 0) == 4)
 		return ('K');
-	if (figure[0][1] && figure[1][0] && figure[1][1] && figure[1][2])
+	if (L(figure, 0, 0) == 4)
 		return ('L');
-	if (figure[0][1] && figure[1][0] && figure[1][1] && figure[2][1])
+	if (M(figure, 0, 0) == 4)
 		return ('M');
-	if (figure[0][0] && figure[0][1] && figure[0][2] && figure[1][1])
+	if (N(figure, 0, 0) == 4)
 		return ('N');
-	if (figure[0][1] && figure[1][1] && figure[2][0] && figure[2][1])
+	if (O(figure, 0, 0) == 4)
 		return ('O');
-	if (figure[0][0] && figure[1][0] && figure[1][1] && figure[1][2])
+	if (P(figure, 0, 0) == 4)
 		return ('P');
-	if (figure[0][0] && figure[0][1] && figure[1][0] && figure[2][0])
+	if (Q(figure, 0, 0) == 4)
 		return ('Q');
-	if (figure[0][0] && figure[0][1] && figure[0][2] && figure[1][2])
+	if (R(figure, 0, 0) == 4)
 		return ('R');
-	if (figure[0][1] && figure[1][0] && figure[1][1] && figure[2][0])
+	if (S(figure, 0, 0) == 4)
 		return ('S');
-	if (figure[0][0] && figure[0][1] && figure[1][1] && figure[1][2])
+	if (T(figure, 0, 0) == 4)
 		return ('T');
 	return (0);
 }
