@@ -62,16 +62,16 @@ int		main(int argv, char **argc)
 	ft_print_list(g_figures);
 	n = sqrt(counter * 4);
 	field = ft_init_field(n);
-
 	while (g_figures)
 	{
+		getchar();
 		field = ft_sum(g_figures, field, &n);
+		ft_print_field(field, n);
+		ft_putchar('\n');
 		g_figures = g_figures->next;
 	}
 	ft_print_field(field, n);
-	int i = 0;
-	while(i < n)
-		free(field[i++]);
-	free(field);
+	ft_free_field(field, n);
+	ft_clear_list(&g_figures);
 	return (0);
 }

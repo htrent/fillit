@@ -18,6 +18,7 @@ SRCS =	fillit.c \
 		funcs.c \
 		input.c \
 		list.c \
+		field.c
 
 OBJS = $(SRCS:.c=.o)
 
