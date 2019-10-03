@@ -70,6 +70,7 @@ int		main(int argv, char **argc)
 		ft_putchar('\n');
 		g_figures = g_figures->next;
 	}
+	ft_putstr("End:\n");
 	ft_print_field(field, n);
 	ft_free_field(field, n);
 	ft_clear_list(&g_figures);
