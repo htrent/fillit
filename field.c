@@ -66,29 +66,45 @@ int 	**ft_reinit_field(int **field, int size, int *n)
 	return (new_field);
 }
 
-int		ft_check_field(int **field, char alpha, int i, int j)
+int		ft_check_field(int **field, t_list *tetrimino, t_point p)
 {
-	if ((alpha == 'A' && A(field, i, j) == 0)
-		|| (alpha == 'B' && B(field, i, j) == 0)
-		|| (alpha == 'C' && C(field, i, j) == 0)
-		|| (alpha == 'D' && D(field, i, j) == 0)
-		|| (alpha == 'E' && E(field, i, j) == 0)
-		|| (alpha == 'F' && F(field, i, j) == 0)
-		|| (alpha == 'G' && G(field, i, j) == 0)
-		|| (alpha == 'H' && H(field, i, j) == 0)
-		|| (alpha == 'J' && J(field, i, j) == 0)
-		|| (alpha == 'K' && K(field, i, j) == 0)
-		|| (alpha == 'L' && L(field, i, j) == 0)
-		|| (alpha == 'M' && M(field, i, j) == 0)
-		|| (alpha == 'N' && N(field, i, j) == 0)
-		|| (alpha == 'O' && O(field, i, j) == 0)
-		|| (alpha == 'P' && P(field, i, j) == 0)
-		|| (alpha == 'Q' && Q(field, i, j) == 0)
-		|| (alpha == 'R' && R(field, i, j) == 0)
-		|| (alpha == 'S' && S(field, i, j) == 0)
-		|| (alpha == 'T' && T(field, i, j) == 0))
+	t_point fig;
+
+	fig.y = 0;
+	fig.x = 0;
+	while (fig.y < 4)
+	{
+		while (fig.x < 4)
+		{
+			if (tetrimino->figure[fig.y][fig.x] && field[p.y + fig.y][p.x + fig.x])
+				return (0);
+			fig.x++;
+		}
+		fig.x = 0;
+		fig.y++;
+	}
+	return (1);
+	/* if ((alpha == 'A' && A(field, p.y, p.x) == 0)
+		|| (alpha == 'B' && B(field, p.y, p.x) == 0)
+		|| (alpha == 'C' && C(field, p.y, p.x) == 0)
+		|| (alpha == 'D' && D(field, p.y, p.x) == 0)
+		|| (alpha == 'E' && E(field, p.y, p.x) == 0)
+		|| (alpha == 'F' && F(field, p.y, p.x) == 0)
+		|| (alpha == 'G' && G(field, p.y, p.x) == 0)
+		|| (alpha == 'H' && H(field, p.y, p.x) == 0)
+		|| (alpha == 'J' && J(field, p.y, p.x) == 0)
+		|| (alpha == 'K' && K(field, p.y, p.x) == 0)
+		|| (alpha == 'L' && L(field, p.y, p.x) == 0)
+		|| (alpha == 'M' && M(field, p.y, p.x) == 0)
+		|| (alpha == 'N' && N(field, p.y, p.x) == 0)
+		|| (alpha == 'O' && O(field, p.y, p.x) == 0)
+		|| (alpha == 'P' && P(field, p.y, p.x) == 0)
+		|| (alpha == 'Q' && Q(field, p.y, p.x) == 0)
+		|| (alpha == 'R' && R(field, p.y, p.x) == 0)
+		|| (alpha == 'S' && S(field, p.y, p.x) == 0)
+		|| (alpha == 'T' && T(field, p.y, p.x) == 0))
 			return (1);
-	return (0);
+	return (0);*/
 }
 
 void	ft_print_field(int **field, int n)
@@ -100,6 +116,7 @@ void	ft_print_field(int **field, int n)
 	j = 0;
 	while (i < n)
 	{
+
 		while (j < n)
 		{
 			ft_putchar(field[i][j] + '0');

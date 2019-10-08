@@ -56,12 +56,14 @@ int		main(int argv, char **argc)
 		display_message(0);
 		return (1);
 	}
-	ft_shift_upper_left(g_figures);
-	ft_dimensions_filling(g_figures);
+	//ft_shift_upper_left(g_figures);
+	//ft_dimensions_filling(g_figures);
 	ft_add_alpha(g_figures);
-	ft_print_list(g_figures);
-	n = sqrt(counter * 4);
+ 	ft_print_list(g_figures);
+	ft_putstr("\n@-------Start solution-------@\n");
+	n = 2 * ft_sqrt(counter);
 	field = ft_init_field(n);
+	/*ft_middle_check(g_figures, field, &n);
 	while (g_figures)
 	{
 		getchar();
@@ -72,6 +74,7 @@ int		main(int argv, char **argc)
 	}
 	ft_putstr("End:\n");
 	ft_print_field(field, n);
+*/
 	ft_free_field(field, n);
 	ft_clear_list(&g_figures);
 	return (0);

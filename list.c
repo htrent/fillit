@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-char	ft_alpha_parse(int figure[4][4])
+/*char	ft_alpha_parse(int figure[4][4])
 {
 	if (A(figure, 0, 0) == 4)
 		return ('A');
@@ -53,43 +53,72 @@ char	ft_alpha_parse(int figure[4][4])
 	if (T(figure, 0, 0) == 4)
 		return ('T');
 	return (0);
-}
+}*/
 
 void		ft_add_alpha(t_list *head)
 {
-	t_list *list;
+	t_list	*list;
+	int		i;
 
+	i = 0;
 	list = head;
 	while (list)
 	{
-		list->alpha = ft_alpha_parse(list->figure);
+		list->alpha = 'A' + i;
 		list = list->next;
+		i++;
 	}
 }
 
 t_list		*ft_list_create(char *tetrimino)
 {
 	t_list	*current;
-	int		i;
-	int		j;
+	t_point pos;
+	int 	temp[4][4];
 
 	current = malloc(sizeof(t_list));
-	if (current)
+	if (!current)
+		return (NULL);
+	pos.y = 0;
+	pos.x = 0;
+	while (*tetrimino)
 	{
-		i = 0;
-		j = 0;
-		while (*tetrimino)
+		if (*tetrimino == '\n')
 		{
-			if (*tetrimino == '\n')
-			{
-				i++;
-				j = 0;
-			}
-			else
-				current->figure[i][j++] = (*tetrimino == '#') ? 1 : 0;
-			tetrimino++;
+			pos.y++;
+			pos.x = 0;
 		}
-		current->next = NULL;
+		else
+			temp[pos.y][pos.x++] = (*tetrimino == '#') ? 1 : 0;
+		tetrimino++;
+	}
+	ft_shift_upper_left(temp);
+	current = ft_list_create_help(temp, current);
+	current->next = NULL;
+	return (current);
+}
+
+t_list 	*ft_list_create_help(int temp[4][4], t_list *current)
+{
+	t_point pos;
+	int		fig;
+
+	pos.y = 0;
+	pos.x = 0;
+	fig = 0;
+	while (pos.y < 4)
+	{
+		while (pos.x < 4)
+		{
+			if (temp[pos.y][pos.x])
+			{
+				current->figure[fig][0] = pos.y;
+				current->figure[fig++][1] = pos.x;
+			}
+			pos.x++;
+		}
+		pos.y++;
+		pos.x = 0;
 	}
 	return (current);
 }
@@ -119,18 +148,25 @@ void		ft_print_list(t_list *head)
 	t_list	*list;
 	int		i;
 	int		j;
+	int 	pos;
 
 	list = head;
 	while (list)
 	{
+		pos = 0;
 		i = 0;
 		j = 0;
 		while (i < 4)
 		{
 			while (j < 4)
 			{
-				ft_putchar(list->figure[i][j] + '0');
-				ft_putchar(' ');
+				if (list->figure[pos][0] == i && list->figure[pos][1] == j)
+				{
+					ft_putchar(list->alpha);
+					pos++;
+				}
+				else
+					ft_putchar('.');
 				j++;
 			}
 			ft_putchar('\n');
