@@ -21,7 +21,7 @@ int		main(int argv, char **argc)
 	int		counter;
 	int		fd;
 
-	int **field;
+	char **field;
 	int n;
 
 	if (argv == 2)
@@ -56,23 +56,22 @@ int		main(int argv, char **argc)
 		display_message(0);
 		return (1);
 	}
+
 	ft_add_alpha(g_figures);
  	ft_print_list(g_figures);
-	ft_putstr("\n@-------Start solution-------@\n");
+	ft_putstr("\n/\\/\\/\\/\\/\\/Start Solution\\/\\/\\/\\/\\/\\\n");
 	n = 2 * ft_sqrt(counter);
 	field = ft_init_field(n);
-	/*ft_middle_check(g_figures, field, &n);
 	while (g_figures)
 	{
 		getchar();
-		field = ft_sum(g_figures, field, &n);
+		field = ft_fill_field(g_figures, field, &n);
 		ft_print_field(field, n);
 		ft_putchar('\n');
 		g_figures = g_figures->next;
 	}
 	ft_putstr("End:\n");
 	ft_print_field(field, n);
-*/
 	ft_free_field(field, n);
 	ft_clear_list(&g_figures);
 	return (0);

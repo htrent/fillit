@@ -12,20 +12,20 @@
 
 #include "fillit.h"
 
-int		**ft_init_field(int n)
+char		**ft_init_field(int n)
 {
-	int **field;
+	char **field;
 	int i;
 	int j;
 
 	i = -1;
 	j = 0;
-	field = (int **)malloc(sizeof(int *) * n);
+	field = (char **)malloc(sizeof(char *) * n);
 	if (!field)
 		return (NULL);
 	while (++i < n)
 	{
-		field[i] = (int *)malloc(sizeof(int) * n);
+		field[i] = (char *)malloc(sizeof(char) * n);
 		if (!field[i])
 		{
 			while (i >= 0)
@@ -33,15 +33,15 @@ int		**ft_init_field(int n)
 			return (NULL);
 		}
 		while (j < n)
-			field[i][j++] = 0;
+			field[i][j++] = '.';
 		j = 0;
 	}
 	return (field);
 }
 
-int 	**ft_reinit_field(int **field, int size, int *n)
+char 	**ft_reinit_field(char **field, int size, int *n)
 {
-	int **new_field;
+	char **new_field;
 	int i;
 	int j;
 
@@ -66,27 +66,35 @@ int 	**ft_reinit_field(int **field, int size, int *n)
 	return (new_field);
 }
 
-int		ft_check_field(int **field, t_list *tetrimino, t_point p)
+int		ft_check_field(char **field, t_list *tetrimino, t_point p, int n)
 {
-	t_point fig;
+	int pos;
+	t_point max;
 
-	fig.y = 0;
-	fig.x = 0;
-	while (fig.y < 4)
+	pos = 0;
+	max.x = 0;
+	max.y = 0;
+	while (pos < 4)
 	{
-		while (fig.x < 4)
-		{
-			if (tetrimino->figure[fig.y][fig.x] && field[p.y + fig.y][p.x + fig.x])
-				return (0);
-			fig.x++;
-		}
-		fig.x = 0;
-		fig.y++;
+		max.y = MAX(tetrimino->figure[pos][0], max.y);
+		max.x = MAX(tetrimino->figure[pos][1], max.x);
+		pos++;
+	}
+	if (p.x + max.x > n && p.y + max.y <= n)
+		return (-1);
+	if (p.y + max.y > n && p.x + max.x > n)
+		return (MAX(p.y + max.y - n + 1, p.x + max.x - n + 1));
+	pos = 0;
+	while (pos < 4)
+	{
+		if (field[p.y + tetrimino->figure[pos][0]][p.x + tetrimino->figure[pos][1]] != '.')
+			return (0);
+		pos++;
 	}
 	return (1);
 }
 
-void	ft_print_field(int **field, int n)
+void	ft_print_field(char **field, int n)
 {
 	int i;
 	int j;
@@ -98,7 +106,7 @@ void	ft_print_field(int **field, int n)
 
 		while (j < n)
 		{
-			ft_putchar(field[i][j] + '0');
+			ft_putchar(field[i][j]);
 			ft_putchar(' ');
 			j++;
 		}
@@ -108,7 +116,7 @@ void	ft_print_field(int **field, int n)
 	}
 }
 
-void	ft_free_field(int **field, int n)
+void	ft_free_field(char **field, int n)
 {
 	int i;
 

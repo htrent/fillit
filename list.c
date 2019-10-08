@@ -112,9 +112,9 @@ void		ft_print_list(t_list *head)
 	{
 		pos = 0;
 		i = 0;
-		j = 0;
 		while (i < 4)
 		{
+			j = 0;
 			while (j < 4)
 			{
 				if (list->figure[pos][0] == i && list->figure[pos][1] == j)
@@ -127,7 +127,6 @@ void		ft_print_list(t_list *head)
 				j++;
 			}
 			ft_putchar('\n');
-			j = 0;
 			i++;
 		}
 		ft_putchar('\n');

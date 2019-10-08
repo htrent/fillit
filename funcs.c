@@ -35,174 +35,39 @@ int 	ft_sqrt(int n)
 	return (i);
 }
 
-int		ft_count_blank_strings(int tetrimino[4][4])
+char 	**ft_fill(t_list *tetrimino, char **field, t_point p)
 {
-	int i;
-	int j;
-	int count;
+	int pos;
 
-	count = 0;
-	i = 0;
-	j = 0;
-	while (i < 4)
+	pos = 0;
+	while (pos < 4)
 	{
-		while (j < 4 && tetrimino[i][j] == 0)
-		{
-			j++;
-			count++;
-		}
-		if (j != 4)
-			break ;
-		j = 0;
-		i++;
-	}
-	return (count / 4);
-}
-
-int		ft_count_blank_columns(int tetrimino[4][4])
-{
-	int i;
-	int j;
-	int count;
-
-	count = 0;
-	i = 0;
-	j = 0;
-	while (i < 4)
-	{
-		while (j < 4 && tetrimino[j][i] == 0)
-		{
-			j++;
-			count++;
-		}
-		if (j != 4)
-			break ;
-		j = 0;
-		i++;
-	}
-	return (count / 4);
-}
-
-void 	ft_shift_upper(int temp[4][4])
-{
-	int i;
-	int j;
-	int shift;
-
-	i = 0;
-	j = 0;
-	shift = ft_count_blank_columns(temp);
-	if (shift != 0)
-		while (i < 4)
-		{
-			while (j < 4 - shift)
-			{
-				temp[i][j] = temp[i][j + shift];
-				temp[i][j + shift] = 0;
-				j++;
-			}
-			i++;
-			j = 0;
-		}
-}
-
-void 	ft_shift_left(int temp[4][4])
-{
-	int i;
-	int j;
-	int shift;
-
-	i = 0;
-	j = 0;
-	shift = ft_count_blank_strings(temp);
-	if (shift != 0)
-		while (i < 4 - shift)
-		{
-			while (j < 4)
-			{
-				temp[i][j] = temp[i + shift][j];
-				temp[i + shift][j] = 0;
-				j++;
-			}
-			j = 0;
-			i++;
-		}
-}
-
-void	ft_shift_upper_left(int temp[4][4])
-{
-	ft_shift_upper(temp);
-	ft_shift_left(temp);
-}
-
-void	ft_dimensions_filling(t_list *head)
-{
-	t_list	*current;
-	int		i_max;
-	int		j_max;
-	int		i;
-	int		j;
-
-	current = head;
-	while (current)
-	{
-		i_max = 0;
-		j_max = 0;
-		i = 0;
-		while (i < 4)
-		{
-			j = 0;
-			while (j < 4)
-			{
-				if (current->figure[i][j] == 1)
-				{
-					i_max = (i > i_max) ? i : i_max;
-					j_max = (j > j_max) ? j : j_max;
-				}
-				j++;
-			}
-			i++;
-		}
-		current->width = j_max + 1;
-		current->heigth = i_max + 1;
-		current = current->next;
-	}
-}
-
-int 	**ft_sum_arrays(t_list *tetrimino, int **field, t_point p)
-{
-	t_point _p;
-	int old_j;
-
-	_p.y = 0;
-	_p.x = 0;
-	old_j = p.x;
-	while (_p.y < tetrimino->heigth)
-	{
-		while (_p.x < tetrimino->width)
-			field[p.y][p.x++] += tetrimino->figure[_p.y][_p.x++];
-		_p.x = 0;
-		p.x = old_j;
-		_p.y++;
-		p.y++;
+		field[p.y + tetrimino->figure[pos][0]][p.x + tetrimino->figure[pos][1]] = tetrimino->alpha;
+		pos++;
 	}
 	return (field);
 }
 
-int 	**ft_sum(t_list *tetrimino, int **field, int *n, t_point p)
+char 	**ft_fill_field(t_list *tetrimino, char **field, int *n)
 {
+	t_point	p;
+	int check;
+
+	p.x = 0;
+	p.y = 0;
 	while (p.y < *n)
 	{
 		while (p.x < *n)
 		{
-			if (!field[p.y][p.x])
+			if (field[p.y][p.x] == '.')
 			{
-				if ((p.y + tetrimino->heigth <= *n) && (p.x + tetrimino->width <= *n) && ft_check_field(field, tetrimino, p))
-					return (ft_sum_arrays(tetrimino, field, p));
-				else if (p.x + tetrimino->width > *n && p.y + tetrimino->heigth <= *n)
+				check = ft_check_field(field, tetrimino, p, *n);
+				if (check == 1)
+					return (ft_fill(tetrimino, field, p));
+				else if (check == -1)
 					break ;
-				else if (p.y + tetrimino->heigth > *n)
-					field = ft_reinit_field(field, MAX(p.y + tetrimino->heigth, p.x + tetrimino->width), n);
+				else
+					field = ft_reinit_field(field, check, n);
 			}
 			p.x++;
 		}
@@ -210,41 +75,4 @@ int 	**ft_sum(t_list *tetrimino, int **field, int *n, t_point p)
 		p.y++;
 	}
 	return (field);
-}
-
-void 	ft_middle_check(t_list *tetrimino, int **field, int *n)
-{
-	t_list *tetr;
-	t_point p;
-	int lim;
-	int	st_n;
-
-	p.x = 0;
-	p.y = 0;
-	tetr = tetrimino;
-	lim = *n - (MAX(tetrimino->width, tetrimino->heigth));
-	st_n = *n;
-	while (p.y < lim)
-	{
-		while (p.x < lim)
-		{
-			printf("\n        Solution #%d\n", (p.x + 1) * (p.y + 1));
-			while (tetr)
-			{
-				getchar();
-				field = ft_sum(tetr, field, n, p);
-				ft_print_field(field, *n);
-				ft_putchar('\n');
-				tetr = tetr->next;
-			}
-			ft_free_field(field, *n);
-			*n = st_n;
-			field = ft_init_field(*n);
-			tetr = tetrimino;
-			p.x++;
-		}
-		p.x = 0;
-		p.y++;
-	}
-	ft_free_field(field, *n);
 }
