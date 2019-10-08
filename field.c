@@ -84,7 +84,6 @@ int		ft_check_field(int **field, t_list *tetrimino, t_point p)
 		fig.y++;
 	}
 	return (1);
-
 }
 
 void	ft_print_field(int **field, int n)

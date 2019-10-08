@@ -56,8 +56,6 @@ int		main(int argv, char **argc)
 		display_message(0);
 		return (1);
 	}
-	//ft_shift_upper_left(g_figures);
-	//ft_dimensions_filling(g_figures);
 	ft_add_alpha(g_figures);
  	ft_print_list(g_figures);
 	ft_putstr("\n@-------Start solution-------@\n");
