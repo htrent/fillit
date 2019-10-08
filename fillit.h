@@ -21,29 +21,10 @@
 # include <stdio.h>		// testing
 
 # define MAX(i, j) (i > j) ? i : j
-# define A(f, i, j) f[i][j] + f[i + 1][j] + f[i + 2][j] + f[i + 3][j]
-# define B(f, i, j) f[i][j] + f[i][j + 1] + f[i][j + 2] + f[i][j + 3]
-# define C(f, i, j) f[i][j] + f[i][j + 1] + f[i + 1][j] + f[i + 1][j + 1]
-# define D(f, i, j) f[i][j] + f[i + 1][j] + f[i + 2][j] + f[i + 2][j + 1]
-# define E(f, i, j) f[i][j + 2] + f[i + 1][j] + f[i + 1][j + 2] + f[i + 1][j + 3]
-# define F(f, i, j) f[i][j] + f[i][j + 1] + f[i + 1][j + 1] + f[i + 2][j + 1]
-# define G(f, i, j) f[i][j] + f[i][j + 1] + f[i][j + 2] + f[i + 1][j]
-# define H(f, i, j) f[i][j] + f[i + 1][j] + f[i + 1][j + 1] + f[i + 2][j + 1]
-# define J(f, i, j) f[i][j + 1] + f[i][j + 2] + f[i + 1][j] + f[i + 1][j + 1]
-# define K(f, i, j) f[i][j] + f[i + 1][j] + f[i + 2][j] + f[i + 1][j + 1]
-# define L(f, i, j) f[i][j + 1] + f[i + 1][j] + f[i + 1][j + 1] + f[i + 1][j + 2]
-# define M(f, i, j) f[i][j + 1] + f[i + 1][j] + f[i + 1][j + 1] + f[i + 2][j + 1]
-# define N(f, i, j) f[i][j] + f[i][j + 1] + f[i][j + 2] + f[i + 1][j + 1]
-# define O(f, i ,j) f[i][j + 1] + f[i + 1][j + 1] + f[i + 2][j] + f[i + 2][j + 1]
-# define P(f, i, j) f[i][j] + f[i + 1][j] + f[i + 1][j + 1] + f[i + 1][j + 2]
-# define Q(f, i ,j) f[i][j] + f[i][j + 1] + f[i + 1][j] + f[i + 2][j]
-# define R(f, i, j) f[i][j] + f[i][j + 1] + f[i][j + 2] + f[i + 1][j + 2]
-# define S(f, i, j) f[i][j + 1] + f[i + 1][j] + f[i + 1][j + 1] + f[i + 2][j]
-# define T(f, i, j) f[i][j] + f[i][j + 1] + f[i + 1][j + 1] + f[i + 1][j + 2]
 
 typedef struct		s_list
 {
-	int				figure[4][2];
+	int				figure[4][2]; //coordinates of '#'
 	int				width;
 	int				heigth;
 	char			alpha;

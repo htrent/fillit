@@ -12,49 +12,6 @@
 
 #include "fillit.h"
 
-/*char	ft_alpha_parse(int figure[4][4])
-{
-	if (A(figure, 0, 0) == 4)
-		return ('A');
-	if (B(figure, 0, 0) == 4)
-		return ('B');
-	if (C(figure, 0, 0) == 4)
-		return ('C');
-	if (D(figure, 0, 0) == 4)
-		return ('D');
-	if (E(figure, 0, 0) == 4)
-		return ('E');
-	if (F(figure, 0, 0) == 4)
-		return ('F');
-	if (G(figure, 0, 0) == 4)
-		return ('G');
-	if (H(figure, 0, 0) == 4)
-		return ('H');
-	if (J(figure, 0, 0) == 4)
-		return ('J');
-	if (K(figure, 0, 0) == 4)
-		return ('K');
-	if (L(figure, 0, 0) == 4)
-		return ('L');
-	if (M(figure, 0, 0) == 4)
-		return ('M');
-	if (N(figure, 0, 0) == 4)
-		return ('N');
-	if (O(figure, 0, 0) == 4)
-		return ('O');
-	if (P(figure, 0, 0) == 4)
-		return ('P');
-	if (Q(figure, 0, 0) == 4)
-		return ('Q');
-	if (R(figure, 0, 0) == 4)
-		return ('R');
-	if (S(figure, 0, 0) == 4)
-		return ('S');
-	if (T(figure, 0, 0) == 4)
-		return ('T');
-	return (0);
-}*/
-
 void		ft_add_alpha(t_list *head)
 {
 	t_list	*list;
