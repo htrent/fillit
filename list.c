@@ -27,7 +27,7 @@ void		ft_add_alpha(t_list *head)
 	}
 }
 
-t_list		*ft_list_create(char *tetrimino)
+t_list		*ft_list_create(char *tetrimino, t_list *prev)
 {
 	t_list	*current;
 	t_point pos;
@@ -52,6 +52,7 @@ t_list		*ft_list_create(char *tetrimino)
 	ft_shift_upper_left(temp);
 	current = ft_list_create_help(temp, current);
 	current->next = NULL;
+	current->prev = prev;
 	return (current);
 }
 
@@ -86,7 +87,7 @@ t_list		*ft_list_add(t_list **begin_list, char *tetrimino)
 
 	if (!(*begin_list))
 	{
-		*begin_list = ft_list_create(tetrimino);
+		*begin_list = ft_list_create(tetrimino, NULL);
 		current = *begin_list;
 	}
 	else
@@ -94,7 +95,7 @@ t_list		*ft_list_add(t_list **begin_list, char *tetrimino)
 		current = *begin_list;
 		while (current->next)
 			current = current->next;
-		current->next = ft_list_create(tetrimino);
+		current->next = ft_list_create(tetrimino, current);
 		current = current->next;
 	}
 	return (current);

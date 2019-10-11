@@ -48,9 +48,68 @@ char 	**ft_fill(t_list *tetrimino, char **field, t_point p)
 	return (field);
 }
 
-char 	**ft_fill_field(t_list *tetrimino, char **field, int *n)
+char 	**ft_fill_field(t_list *tetrimino, char **field, int *n, t_point p)
 {
-	t_point	p;
+    int check;
+
+    getchar();
+    printf("%d %d\n", p.y, p.x);
+    ft_print_field(field, *n);
+    if (field[p.y][p.x] == '.')
+    {
+        check = ft_check_field(field, tetrimino, p, *n);
+        printf("check:%d\n", check);
+        if (check == 1)
+        {
+            field = ft_fill(tetrimino, field, p);
+            p.x = 0;
+            p.y = 0;
+            //ft_print_field(field, *n);
+            return (ft_fill_field(tetrimino->next, field, n, p));
+        }
+        if (check == -1)
+        {
+            p.y++;
+            p.x = 0;
+            return (ft_fill_field(tetrimino, field, n, p));
+        }
+        if (check == 0)
+        {
+            p.x++;
+            return (ft_fill_field(tetrimino, field, n, p));
+        }
+        if (check > 1)
+        {
+            if (tetrimino->prev != NULL)
+            {
+                field = ft_delete_tetrimino(field, tetrimino->prev, &p, *n);
+                p.x++;
+                ft_print_field(field, *n);
+                return (ft_fill_field(tetrimino->prev, field, n, p));
+            }
+            field = ft_reinit_field(field, check + *n, n);
+            return (ft_fill_field(tetrimino, field, n, p));
+        }
+
+    }
+    else
+    {
+        if (p.x >= *n)
+        {
+            p.y++;
+            p.x = 0;
+        }
+        else if (p.x < *n && p.y < *n)
+            p.x++;
+        else if (tetrimino->prev != NULL)
+        {
+            field = ft_delete_tetrimino(field, tetrimino->prev, &p, *n);
+            p.x = 0
+        }
+        return (ft_fill_field(tetrimino, field, n, p));
+    }
+    return (NULL);
+	/*t_point	p;
 	int check;
 
 	p.x = 0;
@@ -74,5 +133,5 @@ char 	**ft_fill_field(t_list *tetrimino, char **field, int *n)
 		p.x = 0;
 		p.y++;
 	}
-	return (field);
+	return (field);*/
 }

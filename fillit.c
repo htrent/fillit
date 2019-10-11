@@ -23,6 +23,7 @@ int		main(int argv, char **argc)
 
 	char **field;
 	int n;
+	t_point p;
 
 	if (argv == 2)
 	{
@@ -62,14 +63,17 @@ int		main(int argv, char **argc)
 	ft_putstr("\n/\\/\\/\\/\\/\\/Start Solution\\/\\/\\/\\/\\/\\\n");
 	n = 2 * ft_sqrt(counter);
 	field = ft_init_field(n);
-	while (g_figures)
+	p.x = 0;
+	p.y = 0;
+	/*while (g_figures)
 	{
 		getchar();
 		field = ft_fill_field(g_figures, field, &n);
 		ft_print_field(field, n);
 		ft_putchar('\n');
 		g_figures = g_figures->next;
-	}
+	}*/
+	ft_fill_field(g_figures, field, &n, p);
 	ft_putstr("End:\n");
 	ft_print_field(field, n);
 	ft_free_field(field, n);

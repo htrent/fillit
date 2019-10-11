@@ -27,6 +27,7 @@ typedef struct		s_list
 	int				figure[4][2]; //coordinates of '#'
 	char			alpha;
 	struct s_list	*next;
+	struct s_list   *prev;
 }					t_list;
 
 typedef	struct		s_point
@@ -37,7 +38,7 @@ typedef	struct		s_point
 
 int 				ft_sqrt(int n);
 
-t_list				*ft_list_create(char *tetrimino);
+t_list				*ft_list_create(char *tetrimino, t_list *prev);
 t_list 				*ft_list_create_help(int 	temp[4][4], t_list *current);
 t_list				*ft_list_add(t_list **begin_list, char *tetrimino);
 void    			ft_putchar(char c);
@@ -52,10 +53,11 @@ void				display_message(int signal);
 void				ft_add_alpha(t_list *head);
 int					ft_check_field(char **field, t_list *tetrimino, t_point p, int n);
 void				ft_print_field(char **field, int n);
-char				**ft_fill_field(t_list *tetrimino, char **field, int *n);
+char				**ft_fill_field(t_list *tetrimino, char **field, int *n, t_point p);
 char				**ft_reinit_field(char **field, int size, int *n);
 void				ft_free_field(char **field, int n);
 void				ft_clear_list(t_list **head);
 char 				**ft_fill(t_list *tetrimino, char **field, t_point p);
 void 				ft_middle_check(t_list *tetrimino, char **field, int *n);
+char                **ft_delete_tetrimino(char **field, t_list *tetrimino, t_point *p, int n);
 #endif
