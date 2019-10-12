@@ -30,8 +30,10 @@ int 	ft_sqrt(int n)
 	i = 0;
 	if (n < 0)
 		return (0);
-	while (i * i <= n)
+	while (i * i < n)
 		i++;
+	if (i * i != n)
+		i--;
 	return (i);
 }
 
@@ -52,86 +54,43 @@ char 	**ft_fill_field(t_list *tetrimino, char **field, int *n, t_point p)
 {
     int check;
 
-    getchar();
-    printf("%d %d\n", p.y, p.x);
-    ft_print_field(field, *n);
-    if (field[p.y][p.x] == '.')
-    {
-        check = ft_check_field(field, tetrimino, p, *n);
-        printf("check:%d\n", check);
-        if (check == 1)
-        {
-            field = ft_fill(tetrimino, field, p);
-            p.x = 0;
-            p.y = 0;
-            //ft_print_field(field, *n);
-            return (ft_fill_field(tetrimino->next, field, n, p));
-        }
-        if (check == -1)
-        {
-            p.y++;
-            p.x = 0;
-            return (ft_fill_field(tetrimino, field, n, p));
-        }
-        if (check == 0)
-        {
-            p.x++;
-            return (ft_fill_field(tetrimino, field, n, p));
-        }
-        if (check > 1)
-        {
-            if (tetrimino->prev != NULL)
-            {
-                field = ft_delete_tetrimino(field, tetrimino->prev, &p, *n);
-                p.x++;
-                ft_print_field(field, *n);
-                return (ft_fill_field(tetrimino->prev, field, n, p));
-            }
-            field = ft_reinit_field(field, check + *n, n);
-            return (ft_fill_field(tetrimino, field, n, p));
-        }
-
-    }
-    else
-    {
-        if (p.x >= *n)
-        {
-            p.y++;
-            p.x = 0;
-        }
-        else if (p.x < *n && p.y < *n)
-            p.x++;
-        else if (tetrimino->prev != NULL)
-        {
-            field = ft_delete_tetrimino(field, tetrimino->prev, &p, *n);
-            p.x = 0
-        }
-        return (ft_fill_field(tetrimino, field, n, p));
-    }
-    return (NULL);
-	/*t_point	p;
-	int check;
-
-	p.x = 0;
-	p.y = 0;
-	while (p.y < *n)
+    //getchar();
+	//ft_print_field(field, *n);
+	check = ft_check_field(field, tetrimino, p, *n);
+	//printf( "y: %d  x: %d         \n"
+	//		"check               %d\n"
+	//		"cur fig:            %c\n",p.y, p.x, check, tetrimino->alpha);
+	if (check == -1)
 	{
-		while (p.x < *n)
-		{
-			if (field[p.y][p.x] == '.')
-			{
-				check = ft_check_field(field, tetrimino, p, *n);
-				if (check == 1)
-					return (ft_fill(tetrimino, field, p));
-				else if (check == -1)
-					break ;
-				else
-					field = ft_reinit_field(field, check, n);
-			}
-			p.x++;
-		}
-		p.x = 0;
 		p.y++;
+		p.x = 0;
+		return (ft_fill_field(tetrimino, field, n, p));
 	}
-	return (field);*/
+	if (check == 0)
+	{
+		p.x++;
+		return (ft_fill_field(tetrimino, field, n, p));
+	}
+	if (check == 2)
+	{
+		if (tetrimino->prev != NULL)
+		{
+			field = ft_delete_tetrimino(field, tetrimino->prev, &p, *n);
+			return (ft_fill_field(tetrimino->prev, field, n, p));
+		}
+		field = ft_reinit_field(field, *n + 1, n);
+		p.x = 0;
+		p.y = 0;
+		return (ft_fill_field(tetrimino, field, n, p));
+	}
+    if (field[p.y + tetrimino->figure[0][0]][p.x + tetrimino->figure[0][1]] == '.' && check == 1)
+    {
+        field = ft_fill(tetrimino, field, p);
+        p.x = 0;
+        p.y = 0;
+		if (tetrimino->next == NULL)
+			return (field);
+	    return (ft_fill_field(tetrimino->next, field, n, p));
+    }
+    return (ft_fill_field(tetrimino, field, n, p));
 }

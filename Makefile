@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/26 14:40:19 by htrent            #+#    #+#              #
-#    Updated: 2019/09/28 13:38:26 by marvin           ###   ########.fr        #
+#    Updated: 2019/10/12 15:41:11 by htrent           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ OBJS = $(SRCS:.c=.o)
 
 
 all: $(NAME)
-	./fillit file
 
 $(NAME): $(OBJS)
 		gcc -Wall -Wextra -Werror -o $(NAME) $^				-lm
