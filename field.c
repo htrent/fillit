@@ -39,7 +39,7 @@ char		**ft_init_field(int n)
 	return (field);
 }
 
-char 	**ft_reinit_field(char **field, int size, int *n)
+char 	**ft_reinit_field(char **field, int size, int *n, t_point *p)
 {
 	char **new_field;
 	int i;
@@ -58,43 +58,36 @@ char 	**ft_reinit_field(char **field, int size, int *n)
 		j = 0;
 		i++;
 	}
-	i = 0;
-	while (i < *n)
-		free(field[i++]);
-	free(field);
+    ft_free_field(field, *n);
 	*n = size;
+	p->x = 0;
+	p->y = 0;
 	return (new_field);
 }
 
-int		ft_check_field(char **field, t_list *tetrimino, t_point p, int n)
+int		ft_check_field(char **field, t_list *tetrimino, t_point *p, int n)
 {
     //return (-1) => new line
     //return (2) => new field or move prev figure
     //return (0) => can't place
     //return (1) => CAN PLACE
 	int pos;
-	t_point max;
 
-	pos = 0;
-	max.x = 0;
-	max.y = 0;
-	while (pos < 4)
+    pos = -1;
+	if (p->x + tetrimino->max.x > n && p->y + tetrimino->max.y < n)
 	{
-		max.y = MAX(tetrimino->figure[pos][0], max.y);
-		max.x = MAX(tetrimino->figure[pos][1], max.x);
-		pos++;
-	}
-	if (p.x + max.x > n && p.y + max.y < n)
-		return (-1);
-	if (p.y + max.y >= n || (p.y + max.y >= n && p.x + max.x >= n))
+	    p->y++;
+	    p->x = 0;
+        return (-1);
+    }
+	if (p->y + tetrimino->max.y >= n || (p->y + tetrimino->max.y >= n && p->x + tetrimino->max.x >= n))
 		return (2);
-	pos = 0;
-	while (pos < 4)
-	{
-		if (field[p.y + tetrimino->figure[pos][0]][p.x + tetrimino->figure[pos][1]] != '.')
-			return (0);
-		pos++;
-	}
+	while (++pos < 4)
+		if (field[p->y + tetrimino->figure[pos][0]][p->x + tetrimino->figure[pos][1]] != '.')
+		{
+		    p->x++;
+            return (0);
+        }
 	return (1);
 }
 
@@ -121,13 +114,13 @@ void	ft_print_field(char **field, int n)
 
 char    **ft_delete_tetrimino(char **field, t_list *tetrimino, t_point *p, int n)
 {
-    t_point tmp;
-
-    tmp.x = 0;
-    tmp.y = 0;
-	p->x = n;
-	p->y = n;
-    while (tmp.y < n)
+    //t_point tmp;
+    //
+    //tmp.x = 0;
+    //tmp.y = 0;
+	//p->x = n;
+	//p->y = n;
+    /*while (tmp.y < n)
     {
         while (tmp.x < n)
         {
@@ -140,17 +133,23 @@ char    **ft_delete_tetrimino(char **field, t_list *tetrimino, t_point *p, int n
         }
         tmp.x = 0;
         tmp.y++;
-    }
-    field[tetrimino->figure[0][0] + p->y][tetrimino->figure[0][1] + p->x] = '.';
-    field[tetrimino->figure[1][0] + p->y][tetrimino->figure[1][1] + p->x] = '.';
-    field[tetrimino->figure[2][0] + p->y][tetrimino->figure[2][1] + p->x] = '.';
-    field[tetrimino->figure[3][0] + p->y][tetrimino->figure[3][1] + p->x] = '.';
-	p->x++;
+    }*/
+    p->x = tetrimino->place.x;
+    p->y = tetrimino->place.y;
+    //printf("CLEAR\n");
+   // printf("%d %d\n", tetrimino->place.y, tetrimino->place.x);
+    field[tetrimino->figure[0][0] + tetrimino->place.y][tetrimino->figure[0][1] + tetrimino->place.x] = '.';
+    field[tetrimino->figure[1][0] + tetrimino->place.y][tetrimino->figure[1][1] + tetrimino->place.x] = '.';
+    field[tetrimino->figure[2][0] + tetrimino->place.y][tetrimino->figure[2][1] + tetrimino->place.x] = '.';
+    field[tetrimino->figure[3][0] + tetrimino->place.y][tetrimino->figure[3][1] + tetrimino->place.x] = '.';
 	if (p->x >= n - 1)
 	{
 		p->x = 0;
 		p->y++;
 	}
+	else
+	    p->x++;
+	//printf("%d %d", p->y, p->x);
     return (field);
 }
 

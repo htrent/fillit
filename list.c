@@ -52,6 +52,8 @@ t_list		*ft_list_create(char *tetrimino, t_list *prev)
 	ft_shift_upper_left(temp);
 	current = ft_list_create_help(temp, current);
 	current->next = NULL;
+	current->place.x = 0;
+	current->place.y = 0;
 	current->prev = prev;
 	return (current);
 }
@@ -78,6 +80,12 @@ t_list 	*ft_list_create_help(int temp[4][4], t_list *current)
 		pos.y++;
 		pos.x = 0;
 	}
+    pos.x = -1; //just a counter
+    while (++pos.x < 4)
+    {
+        current->max.y = MAX(current->figure[pos.x][0], current->max.y);
+        current->max.x = MAX(current->figure[pos.x][1], current->max.x);
+    }
 	return (current);
 }
 

@@ -61,6 +61,7 @@ int		main(int argv, char **argc)
 	ft_add_alpha(g_figures);
  //	ft_print_list(g_figures);
 	n = 2 * ft_sqrt(counter);
+	//printf("%d\n", n);
 	field = ft_init_field(n);
 	p.x = 0;
 	p.y = 0;
