@@ -60,7 +60,7 @@ int		ft_count_blank_columns(int tetrimino[4][4])
 	return (count / 4);
 }
 
-void 	ft_shift_upper(int temp[4][4])
+void	ft_shift_upper(int temp[4][4])
 {
 	int i;
 	int j;
@@ -83,7 +83,7 @@ void 	ft_shift_upper(int temp[4][4])
 		}
 }
 
-void 	ft_shift_left(int temp[4][4])
+void	ft_shift_left(int temp[4][4])
 {
 	int i;
 	int j;

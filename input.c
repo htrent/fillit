@@ -51,8 +51,8 @@ int		validation(char *tetrimino, int byte_read)
 	connects = 0;
 	sharps = 0;
 	dots = 0;
-	i = 0;
-	while (i < byte_read)
+	i = -1;
+	while (++i < byte_read)
 	{
 		if (tetrimino[i] == '\n')
 		{
@@ -71,7 +71,6 @@ int		validation(char *tetrimino, int byte_read)
 			dots++;
 		else
 			return (1);
-		i++;
 	}
 	if (sharps != 4 || dots != 12 || (connects != 6 && connects != 8))
 		return (1);

@@ -56,7 +56,6 @@ void				ft_add_alpha(t_list *head);
 int					ft_check_field(char **field, t_list *tetrimino, t_point *p, int n);
 void				ft_print_field(char **field, int n);
 int					ft_fill_field(t_list *tetrimino, char **field, int n, t_point p);
-char				**ft_reinit_field(char **field, int size, int *n, t_point *p);
 void				ft_free_field(char **field, int n);
 void				ft_clear_list(t_list **head);
 char 				**ft_fill(t_list *tetrimino, char **field, t_point *p);

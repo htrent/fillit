@@ -54,40 +54,6 @@ char 	**ft_fill(t_list *tetrimino, char **field, t_point *p)
 	return (field);
 }
 
-/*
-int 	ft_fill_field(t_list *tetrimino, char **field, int n, t_point p)
-{
-    int check;
-
-    //getchar();
-	//ft_print_field(field, *n);
-	check = ft_check_field(field, tetrimino, &p, n);
-	//printf( "y: %d  x: %d         \n"
-	//        "cur fig:            %c\n"
-    //        "check               %d\n", p.y, p.x, tetrimino->alpha, check);
-	if (check == 2)
-	{
-		if (tetrimino->prev != NULL)
-		{
-			field = ft_delete_tetrimino(field, tetrimino->prev, &p, n); //______can place it in return =D
-			return (ft_fill_field(tetrimino->prev, field, n, p));
-		}
-		//field = ft_reinit_field(field, *n + 1, n, &p); //________p.x = 0 && p.y = 0 inclusive :)
-		return (0);
-	}
-    if (check == 1)
-    {
-        field = ft_fill(tetrimino, field, &p); //_____p.x = 0 && p.y = 0 inclusive :)
-        //getchar();
-        //ft_print_field(field, *n);
-		if (tetrimino->next == NULL)
-			return (1);
-	    return (ft_fill_field(tetrimino->next, field, n, p));
-    }
-    return (ft_fill_field(tetrimino, field, n, p)); //_____if check == -1 || check == 0
-}
-*/
-
 int 	ft_fill_field(t_list *tetrimino, char **field, int n, t_point p)
 {
     int check;

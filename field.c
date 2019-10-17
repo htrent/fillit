@@ -39,38 +39,8 @@ char		**ft_init_field(int n)
 	return (field);
 }
 
-char 	**ft_reinit_field(char **field, int size, int *n, t_point *p)
-{
-	char **new_field;
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	new_field = ft_init_field(size);
-	while (i < *n)
-	{
-		while (j < *n)
-		{
-			new_field[i][j] = field[i][j];
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-    ft_free_field(field, *n);
-	*n = size;
-	p->x = 0;
-	p->y = 0;
-	return (new_field);
-}
-
 int		ft_check_field(char **field, t_list *tetrimino, t_point *p, int n)
 {
-    //return (-1) => new line
-    //return (2) => new field or move prev figure
-    //return (0) => can't place
-    //return (1) => CAN PLACE
 	int pos;
 
     pos = -1;
@@ -100,7 +70,6 @@ void	ft_print_field(char **field, int n)
 	j = 0;
 	while (i < n)
 	{
-
 		while (j < n)
 		{
 			ft_putchar(field[i][j]);
@@ -114,30 +83,8 @@ void	ft_print_field(char **field, int n)
 
 char    **ft_delete_tetrimino(char **field, t_list *tetrimino, t_point *p, int n)
 {
-    //t_point tmp;
-    //
-    //tmp.x = 0;
-    //tmp.y = 0;
-	//p->x = n;
-	//p->y = n;
-    /*while (tmp.y < n)
-    {
-        while (tmp.x < n)
-        {
-            if (field[tmp.y][tmp.x] == tetrimino->alpha)
-            {
-				p->x = (p->x > tmp.x) ? tmp.x : p->x;
-				p->y = (p->y > tmp.y) ? tmp.y : p->y;
-            }
-            tmp.x++;
-        }
-        tmp.x = 0;
-        tmp.y++;
-    }*/
     p->x = tetrimino->place.x;
     p->y = tetrimino->place.y;
-    //printf("CLEAR\n");
-   // printf("%d %d\n", tetrimino->place.y, tetrimino->place.x);
     field[tetrimino->figure[0][0] + tetrimino->place.y][tetrimino->figure[0][1] + tetrimino->place.x] = '.';
     field[tetrimino->figure[1][0] + tetrimino->place.y][tetrimino->figure[1][1] + tetrimino->place.x] = '.';
     field[tetrimino->figure[2][0] + tetrimino->place.y][tetrimino->figure[2][1] + tetrimino->place.x] = '.';
@@ -149,7 +96,6 @@ char    **ft_delete_tetrimino(char **field, t_list *tetrimino, t_point *p, int n
 	}
 	else
 	    p->x++;
-	//printf("%d %d", p->y, p->x);
     return (field);
 }
 
