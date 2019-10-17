@@ -43,6 +43,8 @@ int		main(int argv, char **argc)
 				return (1);
 			}
 			ft_list_add(&g_figures, buffer);
+			g_figures->place.x = 0;
+			g_figures->place.y = 0;
 			counter++;
 		}
 		if (strlen(buffer) != 20 || counter < 2 || counter > 25)///_ft_strlen!!!
