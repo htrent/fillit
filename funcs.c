@@ -23,194 +23,95 @@ void	ft_putstr(char *str)
 		ft_putchar(*(str++));
 }
 
-int		ft_count_blank_strings(int tetrimino[4][4])
+int 	ft_sqrt(int n)
 {
 	int i;
-	int j;
-	int count;
 
-	count = 0;
 	i = 0;
-	j = 0;
-	while (i < 4)
-	{
-		while (j < 4 && tetrimino[i][j] == 0)
-		{
-			j++;
-			count++;
-		}
-		if (j != 4)
-			break ;
-		j = 0;
+	if (n < 0)
+		return (0);
+	while (i * i < n)
 		i++;
-	}
-	return (count / 4);
+	if (i * i != n)
+		i--;
+	return (i);
 }
 
-int		ft_count_blank_columns(int tetrimino[4][4])
+char 	**ft_fill(t_list *tetrimino, char **field, t_point *p)
 {
-	int i;
-	int j;
-	int count;
+	int pos;
 
-	count = 0;
-	i = 0;
-	j = 0;
-	while (i < 4)
+	pos = 0;
+	while (pos < 4)
 	{
-		while (j < 4 && tetrimino[j][i] == 0)
-		{
-			j++;
-			count++;
-		}
-		if (j != 4)
-			break ;
-		j = 0;
-		i++;
+		field[p->y + tetrimino->figure[pos][0]][p->x + tetrimino->figure[pos][1]] = tetrimino->alpha;
+		pos++;
 	}
-	return (count / 4);
-}
-
-t_list	*ft_shift_upper(t_list *list)
-{
-	int i;
-	int j;
-	int shift;
-
-	i = 0;
-	j = 0;
-	shift = ft_count_blank_columns(list->figure);
-	if (shift != 0)
-		while (i < 4)
-		{
-			while (j < 4 - shift)
-			{
-				list->figure[i][j] = list->figure[i][j + shift];
-				list->figure[i][j + shift] = 0;
-				j++;
-			}
-			i++;
-			j = 0;
-		}
-	return (list);
-}
-
-t_list	*ft_shift_left(t_list *list)
-{
-	int i;
-	int j;
-	int shift;
-
-	i = 0;
-	j = 0;
-	shift = ft_count_blank_strings(list->figure);
-	if (shift != 0)
-		while (i < 4 - shift)
-		{
-			while (j < 4)
-			{
-				list->figure[i][j] = list->figure[i + shift][j];
-				list->figure[i + shift][j] = 0;
-				j++;
-			}
-			j = 0;
-			i++;
-		}
-	return (list);
-}
-
-void	ft_shift_upper_left(t_list *head)
-{
-	t_list *list;
-
-	list = head;
-	while (list)
-	{
-		list = ft_shift_upper(list);
-		list = ft_shift_left(list);
-		list = list->next;
-	}
-}
-
-void	ft_dimensions_filling(t_list *head)
-{
-	t_list	*current;
-	int		i_max;
-	int		j_max;
-	int		i;
-	int		j;
-
-	current = head;
-	while (current)
-	{
-		i_max = 0;
-		j_max = 0;
-		i = 0;
-		while (i < 4)
-		{
-			j = 0;
-			while (j < 4)
-			{
-				if (current->figure[i][j] == 1)
-				{
-					i_max = (i > i_max) ? i : i_max;
-					j_max = (j > j_max) ? j : j_max;
-				}
-				j++;
-			}
-			i++;
-		}
-		current->width = j_max + 1;
-		current->heigth = i_max + 1;
-		current = current->next;
-	}
-}
-
-int 	**ft_sum_arrays(t_list *tetrimino, int **field, int i, int j)
-{
-	int _i;
-	int _j;
-	int old_j;
-
-	_i = 0;
-	_j = 0;
-	old_j = j;
-	while (_i < tetrimino->heigth)
-	{
-		while (_j < tetrimino->width)
-			field[i][j++] += tetrimino->figure[_i][_j++];
-		_j = 0;
-		j = old_j;
-		_i++;
-		i++;
-	}
+	tetrimino->place.x = p->x;
+	tetrimino->place.y = p->y;
+	p->x = 0;
+	p->y = 0;
 	return (field);
 }
 
-int 	**ft_sum(t_list *tetrimino, int **field, int *n)
+/*
+int 	ft_fill_field(t_list *tetrimino, char **field, int n, t_point p)
 {
-	int i;
-	int j;
+    int check;
 
-	i = 0;
-	j = 0;
-	while (i < *n)
+    //getchar();
+	//ft_print_field(field, *n);
+	check = ft_check_field(field, tetrimino, &p, n);
+	//printf( "y: %d  x: %d         \n"
+	//        "cur fig:            %c\n"
+    //        "check               %d\n", p.y, p.x, tetrimino->alpha, check);
+	if (check == 2)
 	{
-		while (j < *n)
+		if (tetrimino->prev != NULL)
 		{
-			if (!field[i][j])
-			{
-				if ((i + tetrimino->heigth <= *n) && (j + tetrimino->width <= *n) && ft_check_field(field, tetrimino->alpha, i, j))
-					return (ft_sum_arrays(tetrimino, field, i, j));
-				else if (j + tetrimino->width > *n && i + tetrimino->heigth <= *n)
-					break ;
-				else if (i + tetrimino->heigth > *n)
-					field = ft_reinit_field(field, MAX(i + tetrimino->heigth, j + tetrimino->width), n);
-			}
-			j++;
+			field = ft_delete_tetrimino(field, tetrimino->prev, &p, n); //______can place it in return =D
+			return (ft_fill_field(tetrimino->prev, field, n, p));
 		}
-		j = 0;
-		i++;
+		//field = ft_reinit_field(field, *n + 1, n, &p); //________p.x = 0 && p.y = 0 inclusive :)
+		return (0);
 	}
-	return (field);
+    if (check == 1)
+    {
+        field = ft_fill(tetrimino, field, &p); //_____p.x = 0 && p.y = 0 inclusive :)
+        //getchar();
+        //ft_print_field(field, *n);
+		if (tetrimino->next == NULL)
+			return (1);
+	    return (ft_fill_field(tetrimino->next, field, n, p));
+    }
+    return (ft_fill_field(tetrimino, field, n, p)); //_____if check == -1 || check == 0
+}
+*/
+
+int 	ft_fill_field(t_list *tetrimino, char **field, int n, t_point p)
+{
+    int check;
+
+	while (tetrimino)
+	{
+		check = ft_check_field(field, tetrimino, &p, n);
+		if (check == 2)
+		{
+			if (tetrimino->prev != NULL)
+			{
+				field = ft_delete_tetrimino(field, tetrimino->prev, &p, n);
+				tetrimino = tetrimino->prev;
+			}
+			else
+				return (0);
+		}
+		if (check == 1)
+		{
+		    field = ft_fill(tetrimino, field, &p);
+			if (tetrimino->next == NULL)
+				return (1);
+			tetrimino = tetrimino->next;
+		}
+	}
+	return (0);
 }

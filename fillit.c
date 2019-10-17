@@ -21,8 +21,9 @@ int		main(int argv, char **argc)
 	int		counter;
 	int		fd;
 
-	int **field;
+	char **field;
 	int n;
+	t_point p;
 
 	if (argv == 2)
 	{
@@ -49,6 +50,7 @@ int		main(int argv, char **argc)
 			display_message(1);
 			return (1);
 		}
+		free(buffer);
 		close(fd);
 	}
 	else
@@ -56,21 +58,17 @@ int		main(int argv, char **argc)
 		display_message(0);
 		return (1);
 	}
-	ft_shift_upper_left(g_figures);
-	ft_dimensions_filling(g_figures);
 	ft_add_alpha(g_figures);
-	ft_print_list(g_figures);
-	n = sqrt(counter * 4);
+ //	ft_print_list(g_figures);
+	n = 2 * ft_sqrt(counter);
 	field = ft_init_field(n);
-	while (g_figures)
+	p.x = 0;
+	p.y = 0;
+	while (!ft_fill_field(g_figures, field, n, p))
 	{
-		getchar();
-		field = ft_sum(g_figures, field, &n);
-		ft_print_field(field, n);
-		ft_putchar('\n');
-		g_figures = g_figures->next;
+		ft_free_field(field, n++);
+		field = ft_init_field(n);
 	}
-	ft_putstr("End:\n");
 	ft_print_field(field, n);
 	ft_free_field(field, n);
 	ft_clear_list(&g_figures);
