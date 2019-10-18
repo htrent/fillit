@@ -50,14 +50,14 @@ int		main(int argc, char **argv)
 	t_point	p;
 
 	figures = NULL;
+	p.x = 0;
+	p.y = 0;
 	count = init_figures(argc, argv[1], &figures);
 	if ((count == 1 || count == 0) && display_message(count))
 		return (0);
 	ft_add_alpha(figures);
 	n = 2 * ft_sqrt(count);
 	field = ft_init_field(n);
-	p.x = 0;
-	p.y = 0;
 	while (!ft_fill_field(figures, field, n, p))
 	{
 		ft_free_field(field, n++);
