@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   funcs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: htrent <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/21 16:40:45 by htrent            #+#    #+#             */
-/*   Updated: 2019/10/03 11:15:42 by htrent           ###   ########.fr       */
+/*   Created: 2019/10/18 13:28:27 by htrent            #+#    #+#             */
+/*   Updated: 2019/10/18 13:28:30 by htrent           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,17 @@ void	ft_putstr(char *str)
 		ft_putchar(*(str++));
 }
 
-int 	ft_sqrt(int n)
+int		ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while (*(str++))
+		i++;
+	return (i);
+}
+
+int		ft_sqrt(int n)
 {
 	int i;
 
@@ -37,47 +47,17 @@ int 	ft_sqrt(int n)
 	return (i);
 }
 
-char 	**ft_fill(t_list *tetrimino, char **field, t_point *p)
+void	ft_add_alpha(t_list *head)
 {
-	int pos;
+	t_list	*list;
+	int		i;
 
-	pos = 0;
-	while (pos < 4)
+	i = 0;
+	list = head;
+	while (list)
 	{
-		field[p->y + tetrimino->figure[pos][0]][p->x + tetrimino->figure[pos][1]] = tetrimino->alpha;
-		pos++;
+		list->alpha = 'A' + i;
+		list = list->next;
+		i++;
 	}
-	tetrimino->place.x = p->x;
-	tetrimino->place.y = p->y;
-	p->x = 0;
-	p->y = 0;
-	return (field);
-}
-
-int 	ft_fill_field(t_list *tetrimino, char **field, int n, t_point p)
-{
-    int check;
-
-	while (tetrimino)
-	{
-		check = ft_check_field(field, tetrimino, &p, n);
-		if (check == 2)
-		{
-			if (tetrimino->prev != NULL)
-			{
-				field = ft_delete_tetrimino(field, tetrimino->prev, &p, n);
-				tetrimino = tetrimino->prev;
-			}
-			else
-				return (0);
-		}
-		if (check == 1)
-		{
-		    field = ft_fill(tetrimino, field, &p);
-			if (tetrimino->next == NULL)
-				return (1);
-			tetrimino = tetrimino->next;
-		}
-	}
-	return (0);
 }

@@ -12,66 +12,59 @@
 
 #include "fillit.h"
 
-t_list	*g_figures;
-
-int		main(int argv, char **argc)
+int		init_figures(int n, char *str, t_list **figures)
 {
 	char	*buffer;
 	int		byte_read;
-	int		counter;
 	int		fd;
 
-	char **field;
-	int n;
-	t_point p;
-
-	if (argv == 2)
+	if (n == 2)
 	{
-		if ((fd = open(argc[1], O_RDONLY)) == -1)
-		{
-			display_message(1);
+		if ((fd = open(str, O_RDONLY)) == -1)
 			return (1);
-		}
-		counter = 0;
 		buffer = (char *)malloc(sizeof(char) * 22);
 		while ((byte_read = read(fd, buffer, 21)))
 		{
 			buffer[byte_read] = '\0';
-			if (validation(buffer, byte_read))
-			{
-				display_message(1);
+			if (byte_read < 19 || validation(buffer, byte_read))
 				return (1);
-			}
-			ft_list_add(&g_figures, buffer);
-			g_figures->place.x = 0;
-			g_figures->place.y = 0;
-			counter++;
+			ft_list_add(figures, buffer);
+			(*figures)->place.x = 0;
+			(*figures)->place.y = 0;
 		}
-		if (strlen(buffer) != 20 || counter < 2 || counter > 25)///_ft_strlen!!!
-		{
-			display_message(1);
+		if (ft_strlen(buffer) != 20)
 			return (1);
-		}
 		free(buffer);
 		close(fd);
+		return (ft_list_count(*figures));
 	}
-	else
-	{
-		display_message(0);
-		return (1);
-	}
-	ft_add_alpha(g_figures);
-	n = 2 * ft_sqrt(counter);
+	return (0);
+}
+
+int		main(int argc, char **argv)
+{
+	t_list	*figures;
+	int		count;
+	char	**field;
+	int		n;
+	t_point	p;
+
+	figures = NULL;
+	count = init_figures(argc, argv[1], &figures);
+	if ((count == 1 || count == 0) && display_message(count))
+		return (0);
+	ft_add_alpha(figures);
+	n = 2 * ft_sqrt(count);
 	field = ft_init_field(n);
 	p.x = 0;
 	p.y = 0;
-	while (!ft_fill_field(g_figures, field, n, p))
+	while (!ft_fill_field(figures, field, n, p))
 	{
 		ft_free_field(field, n++);
 		field = ft_init_field(n);
 	}
 	ft_print_field(field, n);
 	ft_free_field(field, n);
-	ft_clear_list(&g_figures);
+	ft_clear_list(&figures);
 	return (0);
 }

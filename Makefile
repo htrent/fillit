@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/26 14:40:19 by htrent            #+#    #+#              #
-#    Updated: 2019/10/12 15:41:11 by htrent           ###   ########.fr        #
+#    Updated: 2019/10/18 13:28:19 by htrent           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRCS =	fillit.c \
 		input.c \
 		list.c \
 		field.c \
-		shift.c
+		shift.c \
+		solve.c
 
 OBJS = $(SRCS:.c=.o)
 

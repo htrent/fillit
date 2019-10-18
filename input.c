@@ -12,15 +12,24 @@
 
 #include "fillit.h"
 
-void	display_message(int signal)
+static void		init_valid(t_valid *v)
+{
+	v->connects = 0;
+	v->sharps = 0;
+	v->dots = 0;
+	v->i = -1;
+}
+
+int				display_message(int signal)
 {
 	if (signal == 1)
 		write(1, "error\n", 6);
 	else if (signal == 0)
 		write(1, "usage: ./fillit source_file\n", 28);
+	return (1);
 }
 
-int		check_around(char *tetrimino, int i)
+static int		check_around(char *tetrimino, int i)
 {
 	int connects;
 
@@ -38,41 +47,31 @@ int		check_around(char *tetrimino, int i)
 	return (connects);
 }
 
-int		validation(char *tetrimino, int byte_read)
+int				validation(char *tetrimino, int byte_read)
 {
-	int		connects;
-	int		sharps;
-	int		dots;
-	int		ret;
-	int		i;
+	t_valid v;
 
-	if (byte_read < 19)
-		return (1);
-	connects = 0;
-	sharps = 0;
-	dots = 0;
-	i = -1;
-	while (++i < byte_read)
+	init_valid(&v);
+	while (++v.i < byte_read)
 	{
-		if (tetrimino[i] == '\n')
+		if (tetrimino[v.i] == '\n')
 		{
-			if ((i - 4) % 5 != 0 && i != 20)
+			if ((v.i - 4) % 5 != 0 && v.i != 20)
 				return (1);
 		}
-		else if (tetrimino[i] == '#')
+		else if (tetrimino[v.i] == '#')
 		{
-			ret = check_around(tetrimino, i);
-			if (!ret)
-				return (1);
-			connects += ret;
-			sharps++;
+			v.ret = check_around(tetrimino, v.i);
+			CHECK_RET(v.ret);
+			v.connects += v.ret;
+			v.sharps++;
 		}
-		else if (tetrimino[i] == '.')
-			dots++;
+		else if (tetrimino[v.i] == '.')
+			v.dots++;
 		else
 			return (1);
 	}
-	if (sharps != 4 || dots != 12 || (connects != 6 && connects != 8))
+	if (v.sharps != 4 || v.dots != 12 || (v.connects != 6 && v.connects != 8))
 		return (1);
 	return (0);
 }

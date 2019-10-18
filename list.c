@@ -12,21 +12,6 @@
 
 #include "fillit.h"
 
-void		ft_add_alpha(t_list *head)
-{
-	t_list	*list;
-	int		i;
-
-	i = 0;
-	list = head;
-	while (list)
-	{
-		list->alpha = 'A' + i;
-		list = list->next;
-		i++;
-	}
-}
-
 t_list		*ft_list_create(char *tetrimino, t_list *prev)
 {
 	t_list	*current;
@@ -117,4 +102,17 @@ void		ft_clear_list(t_list **head)
 		*head = (*head)->next;
 		free(to_clear);
 	}
+}
+
+int			ft_list_count(t_list *head)
+{
+	int i;
+
+	i = 0;
+	while (head)
+	{
+		i++;
+		head = head->next;
+	}
+	return (i);
 }
