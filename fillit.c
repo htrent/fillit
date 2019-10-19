@@ -43,7 +43,7 @@ int		init_figures(int n, char *str, t_list **figures)
 	{
 		buffer[byte_read] = '\0';
 		if (byte_read < 19 || validation(buffer, byte_read))
-			return(free_and_return(&buffer));
+			return (free_and_return(&buffer));
 		ft_list_add(figures, buffer);
 		(*figures)->place.x = 0;
 		(*figures)->place.y = 0;
@@ -67,7 +67,8 @@ int		main(int argc, char **argv)
 	p.x = 0;
 	p.y = 0;
 	count = init_figures(argc, argv[1], &figures);
-	if ((count == 1 || count == 0) && display_message(count) && ft_clear_list(&figures))
+	if ((count == 1 || count == 0) && display_message(count)
+	&& ft_clear_list(&figures))
 		return (0);
 	ft_add_alpha(figures);
 	n = 2 * ft_sqrt(count);
