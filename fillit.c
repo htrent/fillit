@@ -6,7 +6,7 @@
 /*   By: hcaterpi <hcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/10/19 14:01:55 by hcaterpi         ###   ########.fr       */
+/*   Updated: 2019/10/19 14:25:44 by hcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ int		ft_sqrt(int n)
 	return (i);
 }
 
+int		free_and_return(char **buffer)
+{
+	free(*buffer);
+	return (1);
+}
+
 int		init_figures(int n, char *str, t_list **figures)
 {
 	char	*buffer;
@@ -37,19 +43,13 @@ int		init_figures(int n, char *str, t_list **figures)
 	{
 		buffer[byte_read] = '\0';
 		if (byte_read < 19 || validation(buffer, byte_read))
-		{
-			free(buffer);
-			return (1);
-		}
+			return(free_and_return(&buffer));
 		ft_list_add(figures, buffer);
 		(*figures)->place.x = 0;
 		(*figures)->place.y = 0;
 	}
 	if (ft_strlen(buffer) != 20)
-	{
-		free(buffer);
-		return (1);
-	}
+		return (free_and_return(&buffer));
 	free(buffer);
 	close(fd);
 	return (ft_list_count(*figures));
@@ -67,7 +67,7 @@ int		main(int argc, char **argv)
 	p.x = 0;
 	p.y = 0;
 	count = init_figures(argc, argv[1], &figures);
-	if ((count == 1 || count == 0) && display_message(count))
+	if ((count == 1 || count == 0) && display_message(count) && ft_clear_list(&figures))
 		return (0);
 	ft_add_alpha(figures);
 	n = 2 * ft_sqrt(count);

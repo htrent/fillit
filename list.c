@@ -6,7 +6,7 @@
 /*   By: hcaterpi <hcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 16:21:53 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/10/03 10:54:59 by htrent           ###   ########.fr       */
+/*   Updated: 2019/10/19 14:26:07 by hcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,19 @@ t_list		*ft_list_add(t_list **begin_list, char *tetrimino)
 	return (current);
 }
 
-void		ft_clear_list(t_list **head)
+int			ft_clear_list(t_list **head)
 {
 	t_list *to_clear;
 
 	if (!head || !*head)
-		return ;
+		return (1);
 	while (*head)
 	{
 		to_clear = *head;
 		*head = (*head)->next;
 		free(to_clear);
 	}
+	return (1);
 }
 
 int			ft_list_count(t_list *head)

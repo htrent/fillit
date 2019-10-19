@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcaterpi <hcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/10/01 15:54:20 by htrent           ###   ########.fr       */
+/*   Updated: 2019/10/19 14:25:39 by hcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void				ft_print_field(char **field, int n);
 int					ft_fill_field(t_list *tetrimino,
 					char **field, int n, t_point p);
 void				ft_free_field(char **field, int n);
-void				ft_clear_list(t_list **head);
+int					ft_clear_list(t_list **head);
 char				**ft_fill(t_list *tetrimino, char **field, t_point *p);
 void				ft_middle_check(t_list *tetrimino, char **field, int *n);
 char				**ft_delete_tetrimino(char **field,
