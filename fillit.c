@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcaterpi <hcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:40:45 by hcaterpi          #+#    #+#             */
-/*   Updated: 2019/10/01 16:22:56 by htrent           ###   ########.fr       */
+/*   Updated: 2019/10/19 13:51:09 by hcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ int		init_figures(int n, char *str, t_list **figures)
 		{
 			buffer[byte_read] = '\0';
 			if (byte_read < 19 || validation(buffer, byte_read))
+			{
+				free(buffer);
+				ft_clear_list(figures);
 				return (1);
+			}
 			ft_list_add(figures, buffer);
 			(*figures)->place.x = 0;
 			(*figures)->place.y = 0;
