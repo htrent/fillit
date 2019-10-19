@@ -12,6 +12,14 @@
 
 #include "fillit.h"
 
+int		ft_max(int i, int j)
+{
+	if (i > j)
+		return (i);
+	else
+		return (j);
+}
+
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
@@ -30,20 +38,6 @@ int		ft_strlen(char *str)
 	i = 0;
 	while (*(str++))
 		i++;
-	return (i);
-}
-
-int		ft_sqrt(int n)
-{
-	int i;
-
-	i = 0;
-	if (n < 0)
-		return (0);
-	while (i * i < n)
-		i++;
-	if (i * i != n)
-		i--;
 	return (i);
 }
 
