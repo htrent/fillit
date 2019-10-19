@@ -46,7 +46,10 @@ int		init_figures(int n, char *str, t_list **figures)
 		(*figures)->place.y = 0;
 	}
 	if (ft_strlen(buffer) != 20)
+	{
+		free(buffer);
 		return (1);
+	}
 	free(buffer);
 	close(fd);
 	return (ft_list_count(*figures));
