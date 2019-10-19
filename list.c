@@ -64,8 +64,8 @@ t_list		*ft_list_create_help(int temp[4][4], t_list *current)
 	pos.x = -1;
 	while (++pos.x < 4)
 	{
-		current->max.y = MAX(current->figure[pos.x][0], current->max.y);
-		current->max.x = MAX(current->figure[pos.x][1], current->max.x);
+		current->max.y = ft_max(current->figure[pos.x][0], current->max.y);
+		current->max.x = ft_max(current->figure[pos.x][1], current->max.x);
 	}
 	return (current);
 }

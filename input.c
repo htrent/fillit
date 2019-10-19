@@ -53,7 +53,6 @@ int				validation(char *tetrimino, int byte_read)
 
 	init_valid(&v);
 	while (++v.i < byte_read)
-	{
 		if (tetrimino[v.i] == '\n')
 		{
 			if ((v.i - 4) % 5 != 0 && v.i != 20)
@@ -62,7 +61,8 @@ int				validation(char *tetrimino, int byte_read)
 		else if (tetrimino[v.i] == '#')
 		{
 			v.ret = check_around(tetrimino, v.i);
-			CHECK_RET(v.ret);
+			if (!v.ret)
+				return (1);
 			v.connects += v.ret;
 			v.sharps++;
 		}
@@ -70,7 +70,6 @@ int				validation(char *tetrimino, int byte_read)
 			v.dots++;
 		else
 			return (1);
-	}
 	if (v.sharps != 4 || v.dots != 12 || (v.connects != 6 && v.connects != 8))
 		return (1);
 	return (0);

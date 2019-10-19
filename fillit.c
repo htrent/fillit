@@ -12,6 +12,18 @@
 
 #include "fillit.h"
 
+int		ft_sqrt(int n)
+{
+	int i;
+
+	i = 1;
+	while (i * i < n)
+		i++;
+	if (i * i != n)
+		i--;
+	return (i);
+}
+
 int		init_figures(int n, char *str, t_list **figures)
 {
 	char	*buffer;

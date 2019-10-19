@@ -17,8 +17,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# define MAX(i, j) (i > j) ? i : j
-# define CHECK_RET(ret) if (!ret){return (1);}
 
 typedef struct		s_valid
 {
@@ -45,6 +43,7 @@ typedef struct		s_list
 	struct s_point	max;
 }					t_list;
 
+int					ft_max(int i, int j);
 int					ft_sqrt(int n);
 int					ft_strlen(char *str);
 int					ft_list_count(t_list *head);
