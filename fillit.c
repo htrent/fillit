@@ -69,7 +69,7 @@ int		main(int argc, char **argv)
 	p.x = 0;
 	p.y = 0;
 	count = init_figures(argc, argv[1], &figures);
-	if (count < 1 && display_message(count) && ft_clear_list(&figures))
+	if ((count < 1 || count > 26) && display_message(count) && ft_clear_list(&figures))
 		return (0);
 	ft_add_alpha(figures);
 	n = 2 * ft_sqrt(count);
