@@ -22,7 +22,7 @@ static void		init_valid(t_valid *v)
 
 int				display_message(int signal)
 {
-	if (signal == 1)
+	if (signal == -1)
 		write(1, "error\n", 6);
 	else if (signal == 0)
 		write(1, "usage: ./fillit source_file\n", 28);
