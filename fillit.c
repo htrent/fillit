@@ -27,7 +27,7 @@ int		ft_sqrt(int n)
 int		free_and_return(char **buffer)
 {
 	free(*buffer);
-	return (1);
+	return (-1);
 }
 
 int		init_figures(int n, char *str, t_list **figures)
